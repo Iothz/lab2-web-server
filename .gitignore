@@ -15,3 +15,5 @@ build
 localhost.crt
 localhost.key
 openssl-localhost.cnf
+
+src/main/resources/localhost.p12
