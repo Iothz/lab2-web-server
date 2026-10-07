@@ -40,6 +40,7 @@ dependencies {
     implementation(libs.jackson.module.kotlin)
     runtimeOnly(libs.kotlin.reflect)
 
+    testImplementation(kotlin("test"))
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.spring.boot.starter.webmvc.test)
     testImplementation(libs.spring.boot.restclient)

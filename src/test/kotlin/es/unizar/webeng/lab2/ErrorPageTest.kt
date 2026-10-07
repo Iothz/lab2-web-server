@@ -2,6 +2,7 @@ package es.unizar.webeng.lab2
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
+import kotlin.test.assertNotNull
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.resttestclient.TestRestTemplate
@@ -35,7 +36,28 @@ class ErrorPageTest {
             HttpEntity<Void>(headers),
             String::class.java,
         )
+
+        assertNotNull(response, "Response error: Response should not be null")
+
         assertEquals(HttpStatus.NOT_FOUND, response.statusCode)
-        assertTrue(response.body!!.contains("Custom error page"))
+
+        val body = response.body
+
+        assertNotNull(body, "Body error: Response body should not be null")
+
+        assertTrue(body.isNotEmpty(), "Content error: Response body should not be empty")
+
+        val expectedText = "Custom error page"
+        assertTrue(body.contains(expectedText)) {
+            """
+            Validation error: Expected text not found in response body.
+            -> Expected to find: "$expectedText"
+            -> Actual response body is (${body.length} characters):
+            ------------------------------------------------
+            $body
+            ------------------------------------------------
+            """.trimIndent()
+
+        }
     }
 }
