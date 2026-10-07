@@ -43,9 +43,14 @@ class ErrorPageTest {
 
         val body = response.body
 
+        // assertNotNull from kotlin.test checks that the value is not null and thanks to smart cast
+        // we can use it as a non-nullable value in the next line
+        // using assertNotNull from org.junit.jupiter.api.Assertions would require to use
+        // the !! operator to cast it to a non-nullable value
         assertNotNull(body, "Body error: Response body should not be null")
 
-        assertTrue(body.isNotEmpty(), "Content error: Response body should not be empty")
+        assertTrue(body.isNotEmpty(),
+            "Content error: Response body should not be empty")
 
         val expectedText = "Custom error page"
         assertTrue(body.contains(expectedText)) {
