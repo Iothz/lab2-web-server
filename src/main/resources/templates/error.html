@@ -3,10 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Error Page</title>
-    <title>PAGINA DE ERROR ERRORXYZ </title>
-    <div>ERROR1 ERROR2 ERROR3 ERROR4 ERROR5</div>
+    <style>
+        body { font-family: sans-serif; margin: 2rem; background-color: #fdfdfd; }
+        .card { border: 1px solid #e0e0e0; padding: 1.5rem; border-radius: 6px; max-width: 600px; }
+        .status { color: #c0392b; font-weight: bold; }
+    </style>
 </head>
 <body>
-
+    <div class="card">
+        <h1>Custom Error Page</h1>
+        <p>An unexpected event occurred while processing your request.</p>
+        <p>Status: <span class="status" th:text="${status}">500</span></p>
+        <p>Path: <code th:text="${path}">/unknown</code></p>
+    </div>
 </body>
 </html>

@@ -36,6 +36,6 @@ class ErrorPageTest {
             String::class.java,
         )
         assertEquals(HttpStatus.NOT_FOUND, response.statusCode)
-        assertTrue(response.body!!.contains("ERRORXYZ"))
+        assertTrue(response.body!!.contains("Custom error page"))
     }
 }
