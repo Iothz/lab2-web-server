@@ -52,7 +52,7 @@ class ErrorPageTest {
         assertTrue(body.isNotEmpty(),
             "Content error: Response body should not be empty")
 
-        val expectedText = "Custom error page"
+        val expectedText = "Custom Error Page"
         assertTrue(body.contains(expectedText)) {
             """
             Validation error: Expected text not found in response body.
@@ -62,7 +62,11 @@ class ErrorPageTest {
             $body
             ------------------------------------------------
             """.trimIndent()
-
         }
+
+        assertTrue(body.contains("404"), "Content error: Response body should contain the status code 404")
+
+        assertTrue(body.contains("missing"), "Content error: Response body should contain the requested path that failed")
+
     }
 }
