@@ -2,7 +2,6 @@ package es.unizar.webeng.lab2
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
-import kotlin.test.assertNotNull
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.resttestclient.TestRestTemplate
@@ -15,11 +14,11 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
+import kotlin.test.assertNotNull
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestRestTemplate
 class ErrorPageTest {
-
     @LocalServerPort
     private var port: Int = 0
 
@@ -30,12 +29,13 @@ class ErrorPageTest {
     fun unknownPathRendersErrorHtml() {
         val headers = HttpHeaders()
         headers.accept = listOf(MediaType.TEXT_HTML)
-        val response = client.exchange(
-            "http://127.0.0.1:$port/missing",
-            HttpMethod.GET,
-            HttpEntity<Void>(headers),
-            String::class.java,
-        )
+        val response =
+            client.exchange(
+                "http://127.0.0.1:$port/missing",
+                HttpMethod.GET,
+                HttpEntity<Void>(headers),
+                String::class.java,
+            )
 
         assertNotNull(response, "Response error: Response should not be null")
 
@@ -49,8 +49,10 @@ class ErrorPageTest {
         // the !! operator to cast it to a non-nullable value
         assertNotNull(body, "Body error: Response body should not be null")
 
-        assertTrue(body.isNotEmpty(),
-            "Content error: Response body should not be empty")
+        assertTrue(
+            body.isNotEmpty(),
+            "Content error: Response body should not be empty",
+        )
 
         val expectedText = "Custom Error Page"
         assertTrue(body.contains(expectedText)) {
@@ -67,6 +69,5 @@ class ErrorPageTest {
         assertTrue(body.contains("404"), "Content error: Response body should contain the status code 404")
 
         assertTrue(body.contains("missing"), "Content error: Response body should contain the requested path that failed")
-
     }
 }

@@ -17,20 +17,24 @@ import java.time.LocalDateTime
 class TimeControllerTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
+
     @Test
     fun timeIsJson() {
-        mockMvc.perform(get("/time").accept(MediaType.APPLICATION_JSON))
+        mockMvc
+            .perform(get("/time").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
             .andExpect(jsonPath("$.time").exists())
     }
 
     @Test
-    fun exactTimeStamp(){
-        val exactTime = LocalDateTime.of(2026, 10, 12, 20, 30, 0)
+    fun exactTimeStamp() {
+        val exactTime =
+            LocalDateTime.of(2026, 10, 12, 20, 30, 0)
 
-        val timeProviderTest = object : TimeProvider {
-            override fun now(): LocalDateTime = exactTime
-        }
+        val timeProviderTest =
+            object : TimeProvider {
+                override fun now(): LocalDateTime = exactTime
+            }
 
         val timeControllerTest = TimeController(timeProviderTest)
 
